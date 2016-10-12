@@ -21,7 +21,7 @@ module.exports = yeoman.Base.extend({
       type: 'input',
       name: 'myappName',
       message: 'What is the name (or path ie myName/myProject if on github.com) of your application',
-      default: 'testapp'
+      default: this.appname.replace(/\s+/g, '-')
     }, {
       type: 'input',
       name: 'myrepoUrl',
@@ -62,9 +62,6 @@ module.exports = yeoman.Base.extend({
         myrepoUrl: this.myrepoUrl
     };
 
-    console.log("app name " + this.myappName)
-    console.log(tmplContext)
-
     this.template('_main.go', 'main.go', tmplContext);
     // this.template('_README.md', 'README.md');
 
@@ -79,7 +76,6 @@ module.exports = yeoman.Base.extend({
   install: function () {
     this.spawnCommand('go', ['get']);
     this.spawnCommand('go', ['get', '-u', 'github.com/kardianos/govendor']);
-    // this.spawnCommand('go', ['get', '-u github.com/kardianos/govendor'])
     this.spawnCommand('govendor', ['init']);
     this.spawnCommand('govendor', ['add', '+external']);
   }
