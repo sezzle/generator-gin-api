@@ -1,4 +1,4 @@
-# generator-gin-api [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-gin-api [![NPM version][npm-image]][npm-url][![Dependency Status][daviddm-image]][daviddm-url]
 > Project generator for gin, gorm golang api
 
 ## Installation
@@ -13,8 +13,11 @@ npm install -g generator-gin-api
 Then generate your new project:
 
 ```bash
+cd $GOPATH/src/github.com && mkdir myNewProject && cd myNewProject
 yo gin-api
 ```
+
+### Note: You will want to generate this project within your $GOPATH
 
 ## Getting To Know Yeoman
 
