@@ -1,0 +1,34 @@
+###############################################################################
+#       Local Settings configuration, please keep gitignored.                 #
+#                Must be named localConfig.yaml (or .yml)                     #
+# REQUIRED : Must change values if using local settings file for configuraion #
+###############################################################################
+
+dbUsername: "sezzle"
+dbPassword: "Testing123"
+dbName: "sezzle"
+
+dbHostName: "127.0.0.1"
+dbPort: 3306
+dbDriver: "mysql" # Mysql recommended
+
+#############################
+#       Other Services      #
+#############################
+
+otherServiceURL: http://localhost:4200
+
+#############################
+# Optional, but recommended #
+#############################
+
+debug: true                        # Highly recommended
+dbRootPassword: "DBROOTPASSWORD"   # Required root test db, optional
+testDbName: "test"                 # REQUIRES root password for use
+
+##################################
+# Optional: Not likely to change #
+##################################
+
+serverHostName: "http://localhost" # Hostname to run this api on
+serverPort:  "10000"               # Port to run this api on
