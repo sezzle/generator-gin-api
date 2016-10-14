@@ -147,7 +147,7 @@ func OpenTestDB() (*gorm.DB, error) {
 func SetDBSettingsFromViper() {
 	glog.Info("Generating database settings...")
 
-	if os.Getenv("SEZZLE_ENVIRONMENT") == "docker" {
+	if os.Getenv("ENVIRONMENT") == "docker" {
 		//Try docker settings
 		viper.SetConfigName("dockerConfig")
 		viper.AddConfigPath("/go/src/sezzle/instantach/config/")
@@ -157,7 +157,7 @@ func SetDBSettingsFromViper() {
 		if err != nil {
 			glog.Fatal("Could not properly load docker settings: ", err)
 		}
-	} else if os.Getenv("SEZZLE_ENVIRONMENT") == "staging" {
+	} else if os.Getenv("ENVIRONMENT") == "staging" {
 		glog.Info("Reading from staging settings")
 
 		DbDriver = os.Getenv("DB_DRIVER")
