@@ -2,7 +2,6 @@ package gorm
 
 import (
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/golang/glog"
@@ -11,7 +10,6 @@ import (
 
 	// recommended by gorm to have this blank import
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/spf13/viper"
 )
 
 

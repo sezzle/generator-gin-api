@@ -1,6 +1,7 @@
 package config
 
 import (
+  "fmt"
 	"os"
 	"strconv"
 
@@ -101,8 +102,12 @@ func SetSettingsFromViper() {
 }
 
 func setEnvironmentVariablesFromConfig(env AppEnvironment) {
+	// get and set basePath of project
+	baseProjectPath := fmt.Sprintf("%s/<%= myrepoUrl %>/<%= myappName %>", os.Getenv("GOPATH"))
+	viper.AddConfigPath(baseProjectPath + "/config/")
+	viper.SetConfigType("yaml")
 	viper.SetConfigName("localConfig")
-	viper.AddConfigPath("./config/")
+
 	viper.SetConfigType("yaml")
 
 	err := viper.ReadInConfig()
