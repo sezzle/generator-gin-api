@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
-   prompting: function() {
+  prompting: function () {
     // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the terrific ' + chalk.red('generator-gin-api') + ' generator!'
@@ -34,9 +34,9 @@ module.exports = yeoman.Base.extend({
     }.bind(this));
   },
 
-  buildTreeFolderAndCopyFiles: function() {
+  buildTreeFolderAndCopyFiles: function () {
     console.log('Generating tree folders');
-    var configDir = 'config/'
+    var configDir = 'config/';
     var ginDir = 'gin/';
     var gormDir = 'gorm/';
     var deployDir = 'deploy/';
@@ -54,17 +54,19 @@ module.exports = yeoman.Base.extend({
     this.copy('user.go', gormDir + 'user.go');
     this.copy('nullTime.go', gormDir + 'nullTime.go');
     this.copy('gin.go', ginDir + 'gin.go');
-    this.copy('routes.go', ginDir + 'routes.go')
-    this.copy('objects.go', gormDir + 'objects.go')
+    this.copy('routes.go', ginDir + 'routes.go');
+    this.copy('objects.go', gormDir + 'objects.go');
+    this.copy('gin_suite_test.go', ginDir + 'gin_suite_test.go');
+    this.copy('user_test.go', ginDir + 'user_test.go');
+    this.copy('Makefile', 'Makefile');
 
     var tmplContext = {
-        myappName : this.myappName,
-        myrepoUrl: this.myrepoUrl
+      myappName: this.myappName,
+      myrepoUrl: this.myrepoUrl
     };
 
     this.template('_main.go', 'main.go', tmplContext);
     // this.template('_README.md', 'README.md');
-
   },
 
   // initialize git repo
@@ -77,7 +79,8 @@ module.exports = yeoman.Base.extend({
     this.spawnCommand('go', ['get']);
     this.spawnCommand('go', ['get', '-u', 'github.com/kardianos/govendor']);
     this.spawnCommand('govendor', ['init']);
-    this.spawnCommand('govendor', ['add', '+external']);
+    // this.spawnCommand('govendor', ['add', '+external']);
+    this.spawnCommand('make', ['install']);
   }
 
 });
