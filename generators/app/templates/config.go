@@ -67,7 +67,7 @@ const (
 
 //SetSettingsFromViper : Sets global settings using viper
 func SetSettingsFromViper() {
-	Environment := getEnvironment()
+	Environment = getEnvironment()
 	glog.Info("We're in our the following environment: ", Environment)
 	// SetENV if not in a production environment
 	// Check for local
@@ -92,7 +92,7 @@ func SetSettingsFromViper() {
 	Debug, _ = strconv.ParseBool(os.Getenv("DEBUG"))
 	ServerHostName = os.Getenv("SERVER_HOSTNAME")
 	ServerPort, _ = strconv.Atoi(os.Getenv("SERVER_PORT"))
-	if Environment != "staging" {
+	if !Environment.IsProduction() {
 
 		ServerHostName = viper.GetString("serverHostName")
 		ServerPort = viper.GetInt("serverPort")
@@ -144,7 +144,7 @@ func setEnvironmentVariablesFromConfig(env AppEnvironment) {
 }
 
 func getEnvironment() AppEnvironment {
-	hostEnvironment := os.Getenv("SEZZLE_ENVIRONMENT")
+	hostEnvironment := os.Getenv("ENVIRONMENT")
 	for _, env := range AppEnvironments {
 		if env == AppEnvironment(hostEnvironment) {
 			Environment = env
