@@ -4,8 +4,8 @@ import (
   "flag"
   _ "net/http/pprof"
 
-  "<%= myrepoUrl %>/<%= myappName %>/gin"
-  "<%= myrepoUrl %>/<%= myappName %>/gorm"
+  "<%= myAppPath %>/gin"
+  "<%= myAppPath %>/gorm"
 
   "github.com/golang/glog"
 )

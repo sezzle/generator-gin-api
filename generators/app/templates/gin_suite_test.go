@@ -10,9 +10,9 @@ import (
 	"net/http/httptest"
 
   "github.com/golang/glog"
-	"<%= myrepoUrl %>/<%= myappName %>/config"
-  testapi "<%= myrepoUrl %>/<%= myappName %>/gin"
-	testgorm "<%= myrepoUrl %>/<%= myappName %>/gorm"
+	"<%= myAppPath %>/config"
+  testapi "<%= myAppPath %>/gin"
+	testgorm "<%= myAppPath %>/gorm"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -83,7 +83,6 @@ func TestGin(t *testing.T) {
 	AfterSuite(func() {
 		//Drop old test db
 		//dropDBStmt := fmt.Sprintf(`DROP DATABASE IF EXISTS %s`, testDBName)
-		//"<%= myappName %>".DB.Exec(dropDBStmt)
 	})
 
 	RunSpecs(t, "Gin Suite")

@@ -1,23 +1,23 @@
 package gorm
 
 import (
-  	"github.com/jinzhu/gorm"
-    "github.com/golang/glog"
+	"github.com/golang/glog"
+	"github.com/jinzhu/gorm"
 )
 
 type User struct {
-  gorm.Model
-  FirstName string
-  LastName string
+	gorm.Model
+	FirstName string
+	LastName  string
 }
 
 // Save : Saves user object
-func (u *User) Save() error {
-  err := DB.Create(u).Error
-  if err != nil {
-    glog.Info(err)
-    return err
-  }
+func (u *User) Creates() error {
+	err := DB.Create(u).Error
+	if err != nil {
+		glog.Info(err)
+		return err
+	}
 
-  return err
+	return err
 }

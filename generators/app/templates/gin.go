@@ -1,7 +1,7 @@
 package gin
 
 import (
-  "<%= myrepoUrl %>/<%= myappName %>/config"
+  "<%= myAppPath %>/config"
 	"strconv"
 
 	"github.com/caarlos0/env"

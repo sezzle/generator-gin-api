@@ -1,20 +1,20 @@
 package gin_test
 
 import (
-	//. "<%= myrepoUrl %>/<%= myappName %>/gin"
-
 	"bytes"
 	"encoding/json"
 	"flag"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
 	"github.com/golang/glog"
 
 	"github.com/gin-gonic/gin"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
+
 func init() {
 	if testing.Verbose() {
 		flag.Set("alsologtostderr", "true")
@@ -22,21 +22,16 @@ func init() {
 	}
 }
 
+var (
+	jsonErr error
+)
+
 var _ = Describe("SignupHandler", func() {
 	RegisterFailHandler(Fail)
 
-	var (
-		jsonErr error
-		// newCustomerToken string
-	// phoneNumber      string = "1234567898"
-	)
-
 	BeforeEach(func() {
-		// setup database
-		// migrate db
-		// setup gin
 		endpointHeaders = make(http.Header)
-		endpointHeaders.Add("X-Real-IP", "74.37.200.161") //Setting a fake IP address for our login security tests.
+		endpointHeaders.Add("X-Real-IP", "74.37.200.161") //Setting a fake IP address for login security tests.
 		form = gin.H{}
 	})
 
@@ -70,7 +65,7 @@ var _ = Describe("SignupHandler", func() {
 			endpointURL = "http://localhost:8000/debug/test"
 		})
 
-		Context("On submitting a bad number", func() {
+		Context("On testing the debut route", func() {
 			BeforeEach(func() {
 				form = gin.H{}
 			})
@@ -81,7 +76,6 @@ var _ = Describe("SignupHandler", func() {
 
 			It("should return an error", func() {
 				Ω(response.Code).Should(Equal(http.StatusOK))
-				// Ω(response.HeaderMap["Content-Type"][0]).Should(Equal("application/json; charset=utf-8"))
 				// Ω(jsonErr).ShouldNot(HaveOccurred())
 				// Ω(responseKeyValue).ShouldNot(BeEmpty())
 			})
@@ -98,9 +92,8 @@ var _ = Describe("SignupHandler", func() {
 				jsonErr = DecodeTestJson(response, &responseKeyValue)
 			})
 
-			It("should ask for an OTP", func() {
+			It("Return status ok", func() {
 				Ω(response.Code).Should(Equal(http.StatusOK))
-				// Ω(response.HeaderMap["Content-Type"][0]).Should(Equal("application/json; charset=utf-8"))
 				// Ω(jsonErr).ShouldNot(HaveOccurred())
 				// Ω(responseKeyValue).ShouldNot(BeEmpty())
 				// Ω(responseKeyValue).Should(HaveKeyWithValue("name", "Test Name"))

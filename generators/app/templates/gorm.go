@@ -6,7 +6,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/jinzhu/gorm"
-  "<%= myrepoUrl %>/<%= myappName %>/config"
+  "<%= myAppPath %>/config"
 
 	// recommended by gorm to have this blank import
 	_ "github.com/jinzhu/gorm/dialects/mysql"

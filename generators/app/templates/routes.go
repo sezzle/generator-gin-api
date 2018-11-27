@@ -2,7 +2,7 @@ package gin
 
 import (
 	"time"
-  "<%= myrepoUrl %>/<%= myappName %>/config"
+  "<%= myAppPath %>/config"
 
 	"github.com/gin-gonic/gin"
 	cors "github.com/itsjamie/gin-cors"

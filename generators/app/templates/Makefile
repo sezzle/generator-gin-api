@@ -3,8 +3,9 @@
 SHELL := /bin/sh
 PKG_NAME=$(shell basename `pwd`)
 GIT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
+GINKGO := $(shell command -v ginkgo 2> /dev/null)
 
-install:
+vendor-dependencies:
 	govendor add +e
 
 build: vet \
@@ -28,7 +29,10 @@ fresh:
 
 # Runs Tests with single stream logs for ginkgo tests
 test:
-
+# Install ginkgo if not installed
+ifeq ($(GINKGO),)
+	go get -u github.com/onsi/ginkgo/ginkgo
+endif
 	# Run all Gin tests with ginkgo
 	export ENVIRONMENT=testing && ginkgo -r -v -noisyPendings=false --nodes=1 -notify --progress --trace ./gin | grep -v vendor
 

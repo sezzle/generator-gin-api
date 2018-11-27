@@ -1,7 +1,7 @@
 package config
 
 import (
-  "fmt"
+	"fmt"
 	"os"
 	"strconv"
 
@@ -92,18 +92,11 @@ func SetSettingsFromViper() {
 	Debug, _ = strconv.ParseBool(os.Getenv("DEBUG"))
 	ServerHostName = os.Getenv("SERVER_HOSTNAME")
 	ServerPort, _ = strconv.Atoi(os.Getenv("SERVER_PORT"))
-	if !Environment.IsProduction() {
-
-		ServerHostName = viper.GetString("serverHostName")
-		ServerPort = viper.GetInt("serverPort")
-		Debug = viper.GetBool("debug")
-
-	}
 }
 
 func setEnvironmentVariablesFromConfig(env AppEnvironment) {
 	// get and set basePath of project
-	baseProjectPath := fmt.Sprintf("%s/src/<%= myrepoUrl %>/<%= myappName %>", os.Getenv("GOPATH"))
+	baseProjectPath := fmt.Sprintf("%s/src/<%= myAppPath %>/", os.Getenv("GOPATH"))
 	viper.AddConfigPath(baseProjectPath + "/config/")
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("localConfig")
@@ -154,9 +147,4 @@ func getEnvironment() AppEnvironment {
 
 	// set to local config if environment not found
 	return AppEnvironmentLocal
-}
-
-//IsProduction is a check for Production environment
-func (e AppEnvironment) IsProduction() bool {
-	return e == AppEnvironmentStaging || e == AppEnvironmentProduction
 }
