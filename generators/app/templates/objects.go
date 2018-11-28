@@ -6,20 +6,20 @@ import (
 
 //Migrate : Initializes all models in db
 func Migrate() error {
-  glog.Info("Running object Migrations...")
+	glog.Info("Running object Migrations...")
 
-/*
-		===========================================
-		Keep these alphabetical for easy search
-	  ===========================================
-*/
+	/*
+			===========================================
+			Keep these alphabetical for easy search
+		  ===========================================
+	*/
 
-  glog.Info("Creating User Table")
-  err := DB.AutoMigrate(&User{}).Error
-  if err != nil {
-    glog.Info(err)
-    return err
-  }
+	glog.Info("Creating User Table")
+	err := DB.AutoMigrate(&User{}).Error
+	if err != nil {
+		glog.Info(err)
+		return err
+	}
 
-  return err
+	return err
 }
