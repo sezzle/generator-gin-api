@@ -33,7 +33,7 @@ var (
 func InitDB() (*gorm.DB, error) {
 
 	//Create the Url used to Open the db
-	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", config.DbUsername, config.DbPassword, config.DbHostname, config.DbPort, config.DbName)
+	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true&loc=UTC", config.DbUsername, config.DbPassword, config.DbHostname, config.DbPort, config.DbName)
 
 	//Attempt to open a new connect to the db
 	glog.Info("Opening a connection to the db...")
@@ -50,58 +50,14 @@ func InitDB() (*gorm.DB, error) {
 	// }
 
 	//Set our Variable to use this connection
-	DB = db
+  DB = db
+
+  // Limit our idle connections to 10, with a maximum lifetime of 30 seconds
+	db.DB().SetMaxIdleConns(100)
+	db.DB().SetConnMaxLifetime(30 * time.Second)
+
+	// Limit total connections to 10
+	db.DB().SetMaxOpenConns(100)
 
 	return DB, err
-}
-
-/*
-   NOTE: test DB will be dropped each time OpenTestDB is called
-*/
-
-//OpenTestDB : Opens a new connection and creates test database
-func OpenTestDB() (*gorm.DB, error) {
-
-	//Set default test db name
-	testDBName := config.TestDBName
-	if testDBName == "" {
-		testDBName = "test"
-	}
-
-	//Create the Url used to Open the db
-	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/?parseTime=true", "root", config.DbRootPassword, config.DbHostname, config.DbPort)
-
-	//Attempt to open a new connect to the db
-	glog.Info("Opening a connection to the db...")
-	db, err := gorm.Open(config.DbDriver, dbURL)
-	if err != nil {
-		glog.Fatal("Couldn't open a connection to the db!", err)
-		return nil, err
-	}
-
-	//Drop old test db
-	dropDBStmt := fmt.Sprintf(`DROP DATABASE IF EXISTS %s`, config.TestDBName)
-	db.Exec(dropDBStmt)
-
-	//Create Database
-	createStmt := fmt.Sprintf(`CREATE DATABASE %s;`, config.TestDBName)
-	result := db.Exec(createStmt)
-	if result.Error != nil {
-		glog.Info(result.Error)
-		return nil, err
-	}
-
-	//Select new test database
-	useStmnt := fmt.Sprintf(`USE %s;`, config.TestDBName)
-	result = db.Exec(useStmnt)
-	if result.Error != nil {
-		glog.Info(result.Error)
-		return nil, err
-	}
-
-	db.LogMode(true)
-
-	TestDB = db
-
-	return db, nil
 }

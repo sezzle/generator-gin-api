@@ -43,10 +43,6 @@ test-all:
 test-only:
 	export ENVIRONMENT=testing && ginkgo -r -v -noisyPendings=false --nodes=1 -notify --progress --trace ./gin --focus="ONLY"
 
-# Runs jenkins tests -- assumes environment is already set
-test-jenkins:
-	ginkgo -r -v -noisyPendings=false --nodes=1 --progress --trace ./gin | grep -v vendor
-
 bench:
 	go test ./... -bench=. | grep -v vendor
 

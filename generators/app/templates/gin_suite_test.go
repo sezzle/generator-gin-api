@@ -73,8 +73,6 @@ func TestGin(t *testing.T) {
 			glog.Fatal("Could not run object migrations.")
 		}
 
-		// migrate also calls InitializeUserData()
-
 		gin.SetMode(gin.ReleaseMode)
 		s = testapi.InitRoutes()
 
@@ -86,36 +84,6 @@ func TestGin(t *testing.T) {
 	})
 
 	RunSpecs(t, "Gin Suite")
-}
-
-func TestIfDefaultRouterWorks(t *testing.T) {
-	s := gin.Default()
-	s.GET("/test", func(c *gin.Context) {
-		c.String(200, "It Works")
-	})
-
-	res := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "http://example.com/test", nil)
-
-	s.ServeHTTP(res, req)
-	//
-	//assert.Equal(t, res.Code, http.StatusOK)
-	//assert.Equal(t, res.Body.String(), "It Works")
-}
-
-func TestRouter(t *testing.T) {
-	//s := testapi.InitRoutes()
-	//res := httptest.NewRecorder()
-	//
-	//form := url.Values{}
-	//form.Add("phone", "5555555555")
-	//req, _ := http.NewRequest("POST", "http://localhost:8000/v1/accounts/login", strings.NewReader(form.Encode()))
-	//
-	//s.ServeHTTP(res, req)
-
-	//assert.Equal(t, res.Code, http.StatusOK)
-	//assert.Equal(t, res.Body.String(), "It Works")
-
 }
 
 //DecodeTestJson Decodes response body to interface provided

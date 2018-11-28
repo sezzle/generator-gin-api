@@ -6,7 +6,7 @@
   "author": {
     "name": "Killian Brackey",
     "email": "killian.brackey@sezzle.com",
-    "url": ""
+    "url": "https://github.com/sezzle/generator-gin-api"
   },
   "files": [
     "generators"

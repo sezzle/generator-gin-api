@@ -65,12 +65,13 @@ module.exports = yeoman.Base.extend({
     mkdirp(deployDir);
 
     this.copy('gitignore', '.gitignore');
+    this.copy('.editorconfig', '.editorconfig');
+    this.copy('README.md', 'README.md');
     this.copy('config.go', configDir + 'config.go');
     this.copy('localConfig.yaml', configDir + 'localConfig.yaml');
     this.copy('localConfig_sample.yaml', configDir + 'localConfig_sample.yaml');
     this.copy('gorm.go', gormDir + 'gorm.go');
     this.copy('user.go', gormDir + 'user.go');
-    this.copy('nullTime.go', gormDir + 'nullTime.go');
     this.copy('gin.go', ginDir + 'gin.go');
     this.copy('routes.go', ginDir + 'routes.go');
     this.copy('objects.go', gormDir + 'objects.go');
